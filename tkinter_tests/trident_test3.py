@@ -1,4 +1,3 @@
-import re
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
@@ -48,23 +47,8 @@ def genNewTable():
             text.grid(row=i + 1, column=j)
 
 
-def putFromClipBoard():
-    clip = window.clipboard_get().strip("\n")
-    print(clip)
-    line = [[float(f) for f in  re.findall("(\d+\.\d|\d+)", l)] for l in clip.split("\n")]
-    print(line)
-    for i, l in enumerate(line):
-        for j, f in zip(range(3), l):
-            text = cells[(i, j)]
-            text.delete(1.0, tk.END)
-            text.insert(tk.END, f)
-
-
 createTableButton = tk.Button(rowsQuestionFrame, text="Create Table", command=genNewTable)
 createTableButton.grid(row=1, column=0)
-
-importTableButton = tk.Button(rowsQuestionFrame, text="Import Table From Clipboard", command=putFromClipBoard)
-importTableButton.grid(row=1, column=1)
 
 
 def getVariableEquations():
@@ -82,7 +66,7 @@ def plotFunc():
     t2 = np.arange(1, 0, -.01)
     # fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
     sub = fig.add_subplot(111)
-    sub.plot(t, t2, label="max")
+    sub.plot(t, t2)
 
     variableEq = getVariableEquations()
     for y, x, c in [a - b for idx, a in enumerate(variableEq) for b in variableEq[idx + 1:]]:
@@ -96,7 +80,6 @@ def plotFunc():
         widget.destroy()  # clean previous canvas
 
     canvas = FigureCanvasTkAgg(fig, master=canvasFrame)  # A tk.DrawingArea.
-    sub.legend()
     canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
