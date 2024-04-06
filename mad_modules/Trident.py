@@ -25,6 +25,7 @@ class TridentWidget(tk.Widget):
         :param mainWindow: The main window for the tkinter to use.
         :param frame: The frame the trident displayer will be set on. If none then the main window will be used.
         """
+        super().__init__(mainWindow, "Trident")
         '''
         # Class Variables
         - mainWindow: : tk.Tk
@@ -117,7 +118,7 @@ class TridentWidget(tk.Widget):
             raise ValueError  # TODO better error here
 
         self.equationValues = [
-            (y, x, c, i1, i2)
+            (y, x, c, i1, i2) if y > 0 else (y, x, c, i2, i1)
             for (y, x, c), i1, i2
             in [
                 (a - b, idx, idy)
