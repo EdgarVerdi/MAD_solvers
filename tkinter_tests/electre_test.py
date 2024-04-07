@@ -211,14 +211,11 @@ class Electre(tk.Widget):
                         if sign < 0:
                             a, b = b, a
                         rulesText += f" {a}{v}{b}"
-            width = 2*self.numberOfRowsInUse*(self.numberOfRowsInUse - 1)
+            width = 2 * self.numberOfRowsInUse * (self.numberOfRowsInUse - 1)
             rules = tk.Text(rulesFrame, height=1, width=width)
             rules.insert(tk.INSERT, rulesText[1:])
             rules.grid(row=j, column=0)
         rulesFrame.grid(row=3, column=0)
-
-
-
 
         concs: list[list[list[float]]] = []
         for j in range(self.numberOfColumnsInUse):
@@ -294,15 +291,15 @@ class Electre(tk.Widget):
             )
 
     def discordanceValue(self, ia, ib, matCells, relValueMatrix, j):
-        if relValueMatrix[ia][ib] <= 2:
+        if relValueMatrix[ia][ib] < 2:
             return 0
         elif relValueMatrix[ia][ib] >= 3:
             return 1
         else:
             return (
-                    matCells[ib][j] - matCells[ia][j] - float(self.getValFromLimitsCell(2, j))
+                    matCells[ia][j] - matCells[ib][j] - float(self.getValFromLimitsCell(2, j))
             ) / (
-                    float(self.getValFromLimitsCell(1, j)) - float(self.getValFromLimitsCell(1, j))
+                    float(self.getValFromLimitsCell(1, j)) - float(self.getValFromLimitsCell(2, j))
             )
 
     def frameOfMatrix(self, matrix, fatherFrame):
