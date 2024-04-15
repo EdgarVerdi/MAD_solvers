@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 import numpy as np
 
 
-class TridentWidget(tk.Widget):
+class TridentWidget:
     LABEL_TXT_HOW_MANY_ROWS = "How many Rows?"
     LABEL_TXT_EDGE_LINE = "max"
     BUTTON_TXT_CREATE_TABLE = "Create Table"
@@ -25,7 +25,6 @@ class TridentWidget(tk.Widget):
         :param mainWindow: The main window for the tkinter to use.
         :param frame: The frame the trident displayer will be set on. If none then the main window will be used.
         """
-        super().__init__(mainWindow, "Trident")
         '''
         # Class Variables
         - mainWindow: : tk.Tk
